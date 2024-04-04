@@ -59,6 +59,7 @@ addButton.addEventListener('click', boundFunc); */
 
 // lesson 15
 
+
 const DomElement = function(selector, height, width, bg, fontSize) {
   this.selector = selector;
   this.height = height;
@@ -82,7 +83,7 @@ const DomElement = function(selector, height, width, bg, fontSize) {
       newDiv.classList.add(this.selector.substring(1));
       this.addStyles(newDiv);
       document.body.prepend(newDiv);
-      newDiv.textContent = "это div"
+      newDiv.textContent = "это div";
     } else if(this.selector.startsWith("#")) {
       const newPar = document.createElement("p");
       newPar.id = this.selector.substring(1);
@@ -93,10 +94,49 @@ const DomElement = function(selector, height, width, bg, fontSize) {
   };
 };
 
-
 const newClass = new DomElement(".class", "200px", "100px", "green", "20px");
 const newId = new DomElement("#id", "100px", "200px", "yellow", "20px");
-
-
 newClass.createElement();
 newId.createElement();
+
+
+// усложенное задание
+
+const Square = function(selector, height, width, bg, fontSize, position, top, left, text) {
+  DomElement.call(this, selector, height, width, bg, fontSize);
+  this.position = position;
+  this.top = top;
+  this.left = left;
+  this.text = text;
+  // функция перемещения квадратика
+  this.changePosition = function(elem, toLeft, toTop) {
+    elem.style.position = this.position;
+    this.top = this.top + toTop;
+    this.left = this.left + toLeft;
+    elem.style.top = this.top + "px";
+    elem.style.left = this.left + "px"
+  }
+}
+const newSquare = new Square(".class", "100px", "100px", "magenta", "20px", "absolute", 200, 200, "HARD");
+
+// отрисовка квадратика после загрузки страницы
+addEventListener('DOMContentLoaded', newSquare.createElement());
+
+const createdSquare = document.querySelector(".class");
+createdSquare.textContent = newSquare.text;
+newSquare.changePosition(createdSquare, 0 ,0);
+// слушатель на кнопки
+addEventListener('keydown', (e) => {
+  if(e.keyCode === 37) {
+    newSquare.changePosition(createdSquare, -10, 0)
+  } else if(e.keyCode === 39) {
+    newSquare.changePosition(createdSquare, 10, 0)
+  } else if(e.keyCode === 38) {
+    newSquare.changePosition(createdSquare, 0, -10)
+  } else if(e.keyCode === 40) {
+    newSquare.changePosition(createdSquare, 0, 10)
+  }
+});
+
+
+
