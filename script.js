@@ -60,41 +60,43 @@ addButton.addEventListener('click', boundFunc); */
 // lesson 15
 
 
-const DomElement = function(selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "elem") {
-  this.selector = selector;
-  this.height = height;
-  this.width = width;
-  this.bg = bg;
-  this.fontSize = fontSize;
-  this.text = text;
-  // метод добавления стилей
-  this.addStyles = function(elem) {
-    elem.style.cssText = `
-      height: ${this.height};
-      width: ${this.width};
-      background: ${this.bg};
-      font-size: ${this.fontSize};
-    `;
-  };
-  // ислючение дублирования
-  this.elemAdd = function(el) {
-    this.addStyles(el);
-    document.body.prepend(el);
-    el.textContent = this.text;
-  };
-  // метод создания элемента
-  this.createElement = function(selector) {
+class DomElement {
+  constructor (selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "elem") {
+    this.selector = selector;
+    this.height = height;
+    this.width = width;
+    this.bg = bg;
+    this.fontSize = fontSize;
+    this.text = text;
+    // метод добавления стилей
+    this.addStyles = function(elem) {
+      elem.style.cssText = `
+        height: ${this.height};
+        width: ${this.width};
+        background: ${this.bg};
+        font-size: ${this.fontSize};
+      `;
+    };
+    // ислючение дублирования
+    this.elemAdd = function(el) {
+      this.addStyles(el);
+      document.body.prepend(el);
+      el.textContent = this.text;
+    };
+    // метод создания элемента
+    this.createElement = function(selector) {
 
-    if(this.selector.startsWith(".")) {
-      const newDiv = document.createElement("div");
-      newDiv.classList.add(this.selector.substring(1));
-      this.elemAdd(newDiv);
-    } else if(this.selector.startsWith("#")) {
-      const newPar = document.createElement("p");
-      newPar.id = this.selector.substring(1);
-      this.elemAdd(newPar);
-    }
-  };
+      if(this.selector.startsWith(".")) {
+        const newDiv = document.createElement("div");
+        newDiv.classList.add(this.selector.substring(1));
+        this.elemAdd(newDiv);
+      } else if(this.selector.startsWith("#")) {
+        const newPar = document.createElement("p");
+        newPar.id = this.selector.substring(1);
+        this.elemAdd(newPar);
+      }
+    };
+  }
 };
 
 const newClass = new DomElement(".class", "200px", "100px", "green", "20px", "divdiv");
@@ -105,21 +107,23 @@ newId.createElement();
 
 // усложенное задание
 
-const Square = function(selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "HARD", position = "absolute", top = "100px", left = "100px") {
-  DomElement.call(this, selector, height, width, bg, fontSize, text);
-  this.position = position;
-  this.top = top;
-  this.left = left;
-  // this.text = text;
-  // функция перемещения квадратика
-  this.changePosition = function(elem, toLeft, toTop) {
-    elem.style.position = this.position;
-    this.top = this.top + toTop;
-    this.left = this.left + toLeft;
-    elem.style.top = this.top + "px";
-    elem.style.left = this.left + "px"
-  }
-}
+class Square extends DomElement {
+  constructor(selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "HARD", position = "absolute", top = "100px", left = "100px") {
+    super(selector, height, width, bg, fontSize, text);
+
+    this.position = position;
+    this.top = top;
+    this.left = left;
+    // функция перемещения квадратика
+    this.changePosition = function(elem, toLeft, toTop) {
+      elem.style.position = this.position;
+      this.top = this.top + toTop;
+      this.left = this.left + toLeft;
+      elem.style.top = this.top + "px";
+      elem.style.left = this.left + "px"
+    };
+  };
+};
 const newSquare = new Square(".class", "100px", "100px", "magenta", "20px", "HARD", "absolute", 200, 200);
 
 
