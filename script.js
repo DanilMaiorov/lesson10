@@ -59,7 +59,6 @@ addButton.addEventListener('click', boundFunc); */
 
 // lesson 15
 
-
 class DomElement {
   constructor (selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "elem") {
     this.selector = selector;
@@ -104,7 +103,6 @@ const newId = new DomElement("#id", "100px", "200px", "yellow", "20px", "parpar"
 newClass.createElement();
 newId.createElement();
 
-
 // усложенное задание
 
 class Square extends DomElement {
@@ -126,11 +124,9 @@ class Square extends DomElement {
 };
 const newSquare = new Square(".class", "100px", "100px", "magenta", "20px", "HARD", "absolute", 200, 200);
 
-
 // отрисовка квадратика после загрузки страницы
 const creator = newSquare.createElement();
 addEventListener('DOMContentLoaded', creator);
-
 
 const createdSquare = document.querySelector(".class");
 createdSquare.textContent = newSquare.text;
@@ -147,7 +143,6 @@ addEventListener('keydown', (e) => {
   } else if(e.key === 40) {
     newSquare.changePosition(createdSquare, 0, 10)
   } */
-
   switch (e.keyCode) {
     case 37:
       newSquare.changePosition(createdSquare, -10, 0)
@@ -162,8 +157,29 @@ addEventListener('keydown', (e) => {
       newSquare.changePosition(createdSquare, 0, 10)
       break
   }
-
 });
 
+// lesson 16
 
+class First {
+  constructor(text = "Привет я метод родителя!") {
+    this.text = text
+  }
+  hello(text) {
+    console.log(text);
+  };
+};
 
+class Second extends First {
+  constructor(text) {
+    super(text);
+  }
+  hello() {
+    super.hello(this.text);
+    console.log("А я наследуемый метод!");
+  };
+}
+
+const secondHello = new Second();
+
+secondHello.hello();
