@@ -60,12 +60,13 @@ addButton.addEventListener('click', boundFunc); */
 // lesson 15
 
 
-const DomElement = function(selector, height, width, bg, fontSize) {
+const DomElement = function(selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "elem") {
   this.selector = selector;
   this.height = height;
   this.width = width;
   this.bg = bg;
   this.fontSize = fontSize;
+  this.text = text;
   // метод добавления стилей
   this.addStyles = function(elem) {
     elem.style.cssText = `
@@ -75,39 +76,41 @@ const DomElement = function(selector, height, width, bg, fontSize) {
       font-size: ${this.fontSize};
     `;
   };
+  // ислючение дублирования
+  this.elemAdd = function(el) {
+    this.addStyles(el);
+    document.body.prepend(el);
+    el.textContent = this.text;
+  };
   // метод создания элемента
   this.createElement = function(selector) {
 
     if(this.selector.startsWith(".")) {
       const newDiv = document.createElement("div");
       newDiv.classList.add(this.selector.substring(1));
-      this.addStyles(newDiv);
-      document.body.prepend(newDiv);
-      newDiv.textContent = "это div";
+      this.elemAdd(newDiv);
     } else if(this.selector.startsWith("#")) {
       const newPar = document.createElement("p");
       newPar.id = this.selector.substring(1);
-      this.addStyles(newPar);
-      document.body.prepend(newPar);
-      newPar.textContent = "это par"
+      this.elemAdd(newPar);
     }
   };
 };
 
-const newClass = new DomElement(".class", "200px", "100px", "green", "20px");
-const newId = new DomElement("#id", "100px", "200px", "yellow", "20px");
+const newClass = new DomElement(".class", "200px", "100px", "green", "20px", "divdiv");
+const newId = new DomElement("#id", "100px", "200px", "yellow", "20px", "parpar");
 newClass.createElement();
 newId.createElement();
 
 
 // усложенное задание
 
-const Square = function(selector, height, width, bg, fontSize, position, top, left, text) {
-  DomElement.call(this, selector, height, width, bg, fontSize);
+const Square = function(selector = ".class", height = "100px", width = "100px", bg = "red", fontSize = "50px", text = "HARD", position = "absolute", top = "100px", left = "100px") {
+  DomElement.call(this, selector, height, width, bg, fontSize, text);
   this.position = position;
   this.top = top;
   this.left = left;
-  this.text = text;
+  // this.text = text;
   // функция перемещения квадратика
   this.changePosition = function(elem, toLeft, toTop) {
     elem.style.position = this.position;
@@ -117,25 +120,45 @@ const Square = function(selector, height, width, bg, fontSize, position, top, le
     elem.style.left = this.left + "px"
   }
 }
-const newSquare = new Square(".class", "100px", "100px", "magenta", "20px", "absolute", 200, 200, "HARD");
+const newSquare = new Square(".class", "100px", "100px", "magenta", "20px", "HARD", "absolute", 200, 200);
+
 
 // отрисовка квадратика после загрузки страницы
-addEventListener('DOMContentLoaded', newSquare.createElement());
+const creator = newSquare.createElement();
+addEventListener('DOMContentLoaded', creator);
+
 
 const createdSquare = document.querySelector(".class");
 createdSquare.textContent = newSquare.text;
 newSquare.changePosition(createdSquare, 0 ,0);
 // слушатель на кнопки
+
 addEventListener('keydown', (e) => {
-  if(e.keyCode === 37) {
+/*   if(e.key === 37) {
     newSquare.changePosition(createdSquare, -10, 0)
-  } else if(e.keyCode === 39) {
+  } else if(e.key === 39) {
     newSquare.changePosition(createdSquare, 10, 0)
-  } else if(e.keyCode === 38) {
+  } else if(e.key === 38) {
     newSquare.changePosition(createdSquare, 0, -10)
-  } else if(e.keyCode === 40) {
+  } else if(e.key === 40) {
     newSquare.changePosition(createdSquare, 0, 10)
+  } */
+
+  switch (e.keyCode) {
+    case 37:
+      newSquare.changePosition(createdSquare, -10, 0)
+      break
+    case 39:
+      newSquare.changePosition(createdSquare, 10, 0)
+      break
+    case 38:
+      newSquare.changePosition(createdSquare, 0, -10)
+      break
+    case 40:
+      newSquare.changePosition(createdSquare, 0, 10)
+      break
   }
+
 });
 
 
