@@ -143,17 +143,17 @@ addEventListener('keydown', (e) => {
   } else if(e.key === 40) {
     newSquare.changePosition(createdSquare, 0, 10)
   } */
-  switch (e.keyCode) {
-    case 37:
+  switch (e.key) {
+    case "ArrowLeft":
       newSquare.changePosition(createdSquare, -10, 0)
       break
-    case 39:
+    case "ArrowRight":
       newSquare.changePosition(createdSquare, 10, 0)
       break
-    case 38:
+    case "ArrowUp":
       newSquare.changePosition(createdSquare, 0, -10)
       break
-    case 40:
+    case "ArrowDown":
       newSquare.changePosition(createdSquare, 0, 10)
       break
   }
