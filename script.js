@@ -168,12 +168,12 @@ class First {
 };
 
 class Second extends First {
-  hello() {
+  hello(text) {
     super.hello("Привет я метод родителя!");
-    console.log("А я наследуемый метод!");
+    console.log(text);
   };
 }
 
 const secondHello = new Second();
 
-secondHello.hello();
+secondHello.hello("А я наследуемый метод!");
