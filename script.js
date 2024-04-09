@@ -162,20 +162,14 @@ addEventListener('keydown', (e) => {
 // lesson 16
 
 class First {
-  constructor(text = "Привет я метод родителя!") {
-    this.text = text
-  }
   hello(text) {
     console.log(text);
   };
 };
 
 class Second extends First {
-  constructor(text) {
-    super(text);
-  }
   hello() {
-    super.hello(this.text);
+    super.hello("Привет я метод родителя!");
     console.log("А я наследуемый метод!");
   };
 }
