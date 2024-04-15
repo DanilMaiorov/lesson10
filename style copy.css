@@ -1,0 +1,56 @@
+input{
+  display: block;
+  margin: 10px 0;
+}
+
+#city{
+  display: none;
+}
+.result{
+  margin: 15px 0;
+}
+
+.btn__wrapper {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.btn__start {
+  background-color: rgba(79, 165, 42, 0.2);
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 1.4;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.btn__pause {
+  background-color: rgba(165, 42, 42, 0.2);
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 1.4;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.btn__reset {
+  background-color: rgba(73, 42, 165, 0.2);
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  line-height: 1.4;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.square {
+  background: blue;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 0;
+}
